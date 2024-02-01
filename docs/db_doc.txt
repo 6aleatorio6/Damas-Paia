@@ -1,0 +1,46 @@
+Tabela Player:
+Uma tabela simples que representa o jogador/usuário. É composta por:
+- id: Identificador único do jogador.
+- nick: Nome de usuário.
+- senha: Senha do jogador.
+- email: Endereço de e-mail do jogador.
+
+
+Tabela Fila:
+Uma tabela para gerenciar a fila de pareamento. É composta por:
+- id: Identificador único da entrada na fila.
+- player_id: ID do jogador na fila.
+- inicio_espera: Data e hora de entrada na fila.
+- fim_espera: Data e hora de saída da fila.
+- aceitou_jogo: Indicador booleano se o jogador aceitou entrar em uma partida.
+
+Informações adicionais:
+O backend deve emparelhar os dois jogadores que estão na fila há mais tempo (com a data mais antiga de entrada), mas antes de iniciar a partida, ambos devem aceitar iniciar a partida (a coluna aceitou_jogo será definida como verdadeira). Assim que emparelhados, o jogador sai da fila (a coluna fim_espera recebe a data atual), mesmo que não tenha aceitado iniciar a partida.
+
+
+Tabela Partida:
+Armazena a maioria das informações de uma partida.
+- id: Identificador único da partida.
+- Vencedor: ID do jogador que venceu a partida (nulo em caso de empate).
+- Vez: ID do jogador que fará a próxima jogada.
+- Relogio: Segundos disponíveis para o jogador realizar sua jogada (o relógio é resetado a cada jogada).
+- start_DT e end_DT: Data e hora de início e término da partida.
+
+
+Tabela Pecas:
+Representa as peças do tabuleiro, criadas no início da partida.
+- id: Identificador único da peça.
+- co_X e co_Y: Coordenadas da peça no tabuleiro.
+- Rainha: Indicador booleano se a peça é uma rainha ou não.
+- capturada: Indicador booleano se a peça foi capturada ou não.
+
+Informações adicionais:
+O backend cria as peças no início da partida e as associa à tabela Tabuleiro.
+
+
+Tabela Tabuleiro:
+Representa a relação muitos para muitos entre peças, jogadores e partidas.
+- pecas_id: ID da peça.
+- player_id: ID do jogador.
+- partida_id: ID da partida.
+                         
