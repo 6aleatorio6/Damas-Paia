@@ -16,3 +16,6 @@ commit 2/2/2024 (noite): dividi docs em subpastas para ficar mais organizado
 commit 3/2/2024 (manha/tarde): feito alguns wireframes do site
     Tbm: wireframe das paginas necessarias para conseguir iniciar uma pt (apenas uma maneira de iniciar)
 
+commit 3/2/2024 (tarde): att do modelo do DB
+    Tbm: desistindo da ideia de um modal para aceitar partida. Isso só add mais um passo para o player conseguir iniciar uma pt
+

@@ -12,10 +12,9 @@ Uma tabela para gerenciar a fila de pareamento. É composta por:
 - player_id: ID do jogador na fila.
 - inicio_espera: Data e hora de entrada na fila.
 - fim_espera: Data e hora de saída da fila.
-- aceitou_jogo: Indicador booleano se o jogador aceitou entrar em uma partida.
 
 Informações adicionais:
-O backend deve emparelhar os dois jogadores que estão na fila há mais tempo (com a data mais antiga de entrada), mas antes de iniciar a partida, ambos devem aceitar iniciar a partida (a coluna aceitou_jogo será definida como verdadeira). Assim que emparelhados, o jogador sai da fila (a coluna fim_espera recebe a data atual), mesmo que não tenha aceitado iniciar a partida.
+O backend deve emparelhar os dois jogadores que estão na fila há mais tempo (com a data mais antiga de entrada), e antes da partida iniciar ele sai da fila.
 
 
 Tabela Partida:
