@@ -12,3 +12,7 @@ commit 2/2/2024 (manhã): instalei o next js e next no projeto
 
 commit 2/2/2024 (noite): dividi docs em subpastas para ficar mais organizado
     Tbm: li a seção de roteamento da documentação do Next antes de começar a codar
+
+commit 3/2/2024 (manha/tarde): feito alguns wireframes do site
+    Tbm: wireframe das paginas necessarias para conseguir iniciar uma pt (apenas uma maneira de iniciar)
+
