@@ -1,0 +1,14 @@
+Uma descrição mais detalhada de cada dia/commit do projeto
+
+
+commit 31/1/2024 (manhã): modelei um EER simples do banco de dados
+    tbm: A modelagem serviu mais para eu pensar na lógica do backend
+
+commit 1/2/2024 (manhã): Fiz uma descrição do banco dados e tbm algumas alterações do EER
+    tbm: coloquei no papel (no caso a descrição) a logica simples que fiz ontem. Decidi usar apenas um server Next como backend e frontend.
+
+commit 2/2/2024 (manhã): instalei o next js e next no projeto 
+    Tbm: vi alguns videos sobre Next.js (que não ajudou muita coisa) e tomei a decisão de usar Tailwind ao inves de BootStrap. BootStrap parecia uma gambiarra no react
+
+commit 2/2/2024 (noite): dividi docs em subpastas para ficar mais organizado
+    Tbm: li a seção de roteamento da documentação do Next antes de começar a codar
