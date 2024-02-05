@@ -34,3 +34,8 @@ commit 5/2/2024 (tarde): prototipo do tabuleiro foi melhorado.
             agora vocẽ pode especificar o tamanho do tabuleiro (pode ser qualquer tipo de medida aceita no CSS) 
 
 
+
+commit 5/2/2024 (noite): pagina inicial melhorada
+    Tbm: melhorei um pouco o design da pagina inicial e deixei ela mais responsiva. Ela fica mais bonita em tela menores
+
+

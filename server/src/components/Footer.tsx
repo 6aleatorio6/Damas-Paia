@@ -2,7 +2,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 
 export default function Footer() {
   return (
-    <footer className="mt-5 bg-dark-subtle   ">
+    <footer className="bg-dark-subtle mt-3 ">
       <div
         style={{
           backgroundColor: "#8358ae",
