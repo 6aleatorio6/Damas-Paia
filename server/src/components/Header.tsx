@@ -1,10 +1,11 @@
 "use client";
+import { styleTheme } from "@/app/_context";
 import { Button, Container, Nav,  Navbar } from "react-bootstrap";
 
 export default function Header() {
   return (
     <header>
-      <Navbar className="bg-dark-subtle">
+      <Navbar  style={styleTheme} >
         <Container>
           <Navbar.Brand  href="#home">Damas Paias</Navbar.Brand>
           <Navbar.Toggle />

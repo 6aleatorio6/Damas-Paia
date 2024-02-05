@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { CSSProperties } from "react";
 
 interface ThemeContext {
     cor: string
@@ -11,7 +11,12 @@ const themeLight: ThemeContext = {
     cor: "light"
 };
 
-const ThemeProvider = createContext(themeDark);
+// temporario
+const styleTheme:CSSProperties = {
+    backgroundColor: "#afcccc"
+}
 
-export default ThemeProvider
-export {themeDark, themeLight, type ThemeContext}
+
+export { styleTheme}
+
+
