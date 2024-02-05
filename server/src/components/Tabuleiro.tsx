@@ -1,4 +1,6 @@
-import React from "react";
+
+import React, { CSSProperties, useRef } from "react";
+
 
 enum CoresTab {
   white,
@@ -28,37 +30,45 @@ function Casa({ corDaCasa, temPeca }: PropsTCasa) {
     );
   }
 
-  return <div className={`bg-${CoresTab[corDaCasa]} Peca `}>{peca}</div>;
+  return <div className={`bg-${CoresTab[corDaCasa]} Peca ratio ratio-1x1 `}>{peca}</div>;
 }
 
 interface PropsTabuleiro {
   dimensao: number;
+  tamanhoPx?: string
 }
 
-export default function Tabuleiro({ dimensao }: PropsTabuleiro) {
+export default function Tabuleiro({ dimensao, tamanhoPx = "500px" }: PropsTabuleiro) {
+
+  
+
+  const style:CSSProperties = {
+    display: "grid",
+    gridTemplateColumns: `repeat(${dimensao} ,1fr)`,
+    width: tamanhoPx,
+  }
+
+
   let arrayInfeliz: any[][] = [];
 
-  let simEnao = false;
+  
+  let simEnaoY = false
   for (let i = 0; i < dimensao; i++) {
-    simEnao = !simEnao;
+    simEnaoY = !simEnaoY;
     arrayInfeliz[i] = [];
-
+    
+    let simEnaoX = simEnaoY;
     for (let j = 0; j < dimensao; j++) {
-      const corDaCasa = simEnao ? CoresTab.white : CoresTab.black;
+      const corDaCasa = simEnaoX ? CoresTab.white : CoresTab.black;
       arrayInfeliz[i].push(Casa({ corDaCasa, temPeca: null }));
-      simEnao = !simEnao;
+      simEnaoX = !simEnaoX;
     }
   }
 
+
   return (
-    <div className="">
-      {arrayInfeliz.map((e, i) => {
-        return (
-          <div key={i} className="d-flex border border-1 col_paia">
-            {e}
-          </div>
-        );
-      })}
+    <div style={style} className="border border-2 p-0 ">
+      {arrayInfeliz.map((e, i) => e)}
     </div>
   );
 }

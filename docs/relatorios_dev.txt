@@ -23,3 +23,14 @@ commit 4/2/2024 (tarde): feito footer e header simples
     Tbm: passei algumas hrs entendo "useContext" e "createContext" pra no final nâo usar.
             E ontem troquei o Tailwind pelo BootStrap, mas deu tanto rolo que até exclui o commit local. Para fazer o BootStrap 
         funcionar precisava colocar "use cliente" no começo da pagina, para renderizar o componente apenas no cliente
+        
+commit 5/2/2024 (manha): feito uma pagina inicial simples e um prototipo da função Core
+    Tbm: aprovetei que a primeira pagina tinha um tabuleiro pra fazer um prototipo da Classe mais importante do site,a responsavel pela partida de dama. claro, essa função não tem enm um terço do que precisa na hr real
+
+
+commit 5/2/2024 (tarde): prototipo do tabuleiro foi melhorado.
+    Tbm: Melhorias feitas no prototipo:
+            agora ele consegue criar  tabuleiros com dimensões impares sem bugar as cores das casas; 
+            agora vocẽ pode especificar o tamanho do tabuleiro (pode ser qualquer tipo de medida aceita no CSS) 
+
+
