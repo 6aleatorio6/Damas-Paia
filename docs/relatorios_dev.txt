@@ -19,3 +19,7 @@ commit 3/2/2024 (manha/tarde): feito alguns wireframes do site
 commit 3/2/2024 (tarde): att do modelo do DB
     Tbm: desistindo da ideia de um modal para aceitar partida. Isso só add mais um passo para o player conseguir iniciar uma pt
 
+commit 4/2/2024 (tarde): feito footer e header simples
+    Tbm: passei algumas hrs entendo "useContext" e "createContext" pra no final nâo usar.
+            E ontem troquei o Tailwind pelo BootStrap, mas deu tanto rolo que até exclui o commit local. Para fazer o BootStrap 
+        funcionar precisava colocar "use cliente" no começo da pagina, para renderizar o componente apenas no cliente
