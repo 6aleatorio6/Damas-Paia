@@ -1,9 +1,8 @@
-import { styleTheme } from "@/app/_context";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 export default function Footer() {
   return (
-    <footer style={styleTheme} className=" text-dark  mt-3 " >
+    <footer className=" bg-body-tertiary   mt-3 " >
       <div
         style={{
           backgroundColor: "#8358ae",

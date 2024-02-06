@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { ThemeProvider } from "react-bootstrap";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" >
-      <body className="bg-dark text-bg-dark   ">
+    <html lang="pt-br" data-bs-theme="dark">
+    
+      <body>
         <Header />
         <main style={{ minHeight: "89.1vh" }}>{children}</main>
         <Footer />

@@ -11,12 +11,6 @@ const themeLight: ThemeContext = {
     cor: "light"
 };
 
-// temporario
-const styleTheme:CSSProperties = {
-    backgroundColor: "#afcccc"
-}
 
-
-export { styleTheme}
 
 
