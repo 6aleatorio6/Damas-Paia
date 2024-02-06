@@ -1,7 +1,10 @@
+import ButtonJogarComo from "@/components/M_jogarComo";
 import Tabuleiro from "@/components/Tabuleiro";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
 export default function Home() {
+
+
   return (
     <Container className="pt-4">
       <Row>
@@ -13,11 +16,10 @@ export default function Home() {
             <h2>Jogue Damas online</h2>
             <p>Jogue com pessoas aleatorias da Internet </p>
           </div>
-          <Button variant="success" className="py-2 px-3 shadow ">
-            <b>JOGAR</b> <br /> <small>Procurar partida</small>
-          </Button>
+          <ButtonJogarComo />
         </Col>
       </Row>
+   
     </Container>
   );
 }

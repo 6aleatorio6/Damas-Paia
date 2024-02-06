@@ -34,8 +34,9 @@ commit 5/2/2024 (tarde): prototipo do tabuleiro foi melhorado.
             agora vocẽ pode especificar o tamanho do tabuleiro (pode ser qualquer tipo de medida aceita no CSS) 
 
 
-
 commit 5/2/2024 (noite): pagina inicial melhorada
     Tbm: melhorei um pouco o design da pagina inicial e deixei ela mais responsiva. Ela fica mais bonita em tela menores
 
 
+commit 5/2/2024 (madrugada): modal da pagina inicial feito
+    Tbm: Criei o modal onde o cara escolhe como vai jogar. Ele pode entrar no site e já jogar como convidado, logar  ou criar uma conta pra jogar logado
