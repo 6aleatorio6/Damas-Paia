@@ -17,10 +17,10 @@ function ModalJogarComo(props: ModalProps) {
       </Modal.Header>
       <Modal.Body>
         <Button variant="success" className="w-100 mb-3 py-3">Jogar como convidado</Button>
-        <Button  className="w-100 mb-3 py-3">
+        <Button href="/signIn"  className="w-100 mb-3 py-3">
           Entrar na sua conta
         </Button>
-        <Button className="w-100  py-3">
+        <Button href="/signUp" className="w-100  py-3">
           Criar uma conta
         </Button>
       </Modal.Body>

@@ -1,3 +1,13 @@
 button {
   width: fit-content;
 }
+
+main .sign{
+  min-height: 89.1vh;
+}
+
+.signSection{
+  min-width: 250px;
+  width: 30rem;
+  max-width: 550px;
+}

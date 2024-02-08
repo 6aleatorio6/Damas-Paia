@@ -6,7 +6,7 @@ export default function Header() {
     <header>
       <Navbar  className="bg-body-tertiary  shadow-lg  " >
         <Container>
-          <Navbar.Brand  href="#home">Damas Paias</Navbar.Brand>
+          <Navbar.Brand  href="/">Damas Paias</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             {false ? (
@@ -15,8 +15,8 @@ export default function Header() {
               </Navbar.Text>
             ) : (
               <Nav>
-                <Nav.Link href="/">Entrar</Nav.Link>
-                <Button variant="primary" href="/">Cadastrar</Button>
+                <Nav.Link href="/signIn">Entrar</Nav.Link>
+                <Button variant="primary" href="/signUp">Cadastrar</Button>
               </Nav>
             )}
           </Navbar.Collapse>
