@@ -6,7 +6,7 @@ export default function layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="d-flex sign">
+    <div className="d-flex sign ">
       <section className="m-auto bg-body-secondary px-3 py-4 rounded-1 signSection" >
         {children}
       </section>
