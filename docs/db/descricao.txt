@@ -1,3 +1,5 @@
+aviso: irei att quando tiver quase definitivo
+
 Tabela Player:
 Uma tabela simples que representa o jogador/usuário. É composta por:
 - id: Identificador único do jogador.
@@ -43,3 +45,4 @@ Representa a relação muitos para muitos entre peças, jogadores e partidas.
 - player_id: ID do jogador.
 - partida_id: ID da partida.
                          
+
