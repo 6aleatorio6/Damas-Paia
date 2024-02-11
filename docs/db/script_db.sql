@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema damasDb
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema damasDb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `damasDb` DEFAULT CHARACTER SET utf8 ;
+USE `damasDb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`user`
+-- Table `damasDb`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user` (
+CREATE TABLE IF NOT EXISTS `damasDb`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nick` VARCHAR(45) NOT NULL,
   `senha` VARCHAR(80) NULL,
@@ -32,9 +32,9 @@ COMMENT = 'Uma tabela simples que representa o jogador/usuário. É composta por
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`jogador`
+-- Table `damasDb`.`jogador`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`jogador` (
+CREATE TABLE IF NOT EXISTS `damasDb`.`jogador` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `partida_id` INT NOT NULL,
   `user_id` INT NOT NULL,
@@ -44,21 +44,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`jogador` (
   INDEX `fk_jogador_user1_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_jogador_partida1`
     FOREIGN KEY (`partida_id`)
-    REFERENCES `mydb`.`partida` (`id`)
+    REFERENCES `damasDb`.`partida` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_jogador_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `damasDb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`partida`
+-- Table `damasDb`.`partida`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`partida` (
+CREATE TABLE IF NOT EXISTS `damasDb`.`partida` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `vencedor` INT NULL,
   `vez` INT NOT NULL,
@@ -69,12 +69,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`partida` (
   INDEX `fk_partida_jogador1_idx` (`vencedor` ASC) VISIBLE,
   CONSTRAINT `fk_partida_jogador1`
     FOREIGN KEY (`vencedor`)
-    REFERENCES `mydb`.`jogador` (`id`)
+    REFERENCES `damasDb`.`jogador` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_partida_jogador2`
     FOREIGN KEY (`vencedor`)
-    REFERENCES `mydb`.`jogador` (`id`)
+    REFERENCES `damasDb`.`jogador` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -82,16 +82,16 @@ COMMENT = 'Armazena a maioria das informações de uma partida.\n- id: Identific
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`fila`
+-- Table `damasDb`.`fila`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`fila` (
+CREATE TABLE IF NOT EXISTS `damasDb`.`fila` (
   `user_id` INT NOT NULL,
   `pareando` TINYINT NOT NULL DEFAULT 0,
   `tempDeEspera` DATETIME NOT NULL,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `fk_fila_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`user` (`id`)
+    REFERENCES `damasDb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -99,9 +99,9 @@ COMMENT = 'Uma tabela para gerenciar a fila de pareamento. É composta por:\n- i
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`peça`
+-- Table `damasDb`.`peça`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`peça` (
+CREATE TABLE IF NOT EXISTS `damasDb`.`peça` (
   `id` INT NOT NULL,
   `jogador_id` INT NOT NULL,
   `co_X` INT NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`peça` (
   INDEX `fk_peça_jogador1_idx` (`jogador_id` ASC) VISIBLE,
   CONSTRAINT `fk_peça_jogador1`
     FOREIGN KEY (`jogador_id`)
-    REFERENCES `mydb`.`jogador` (`id`)
+    REFERENCES `damasDb`.`jogador` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
