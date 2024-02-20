@@ -9,16 +9,16 @@ datasource db {
 
 model jogador {
   id                                  Int       @id @default(autoincrement())
-  partida_id                          Int
-  user_id                             Int
+  usuario_id                          Int
+  partida_id                          Int?
   cronometro                          Int
-  partida_jogador_partida_idTopartida partida   @relation("jogador_partida_idTopartida", fields: [partida_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_jogador_partida1")
-  user                                user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_jogador_user1")
+  partida_jogador_partida_idTopartida partida?  @relation("jogador_partida_idTopartida", fields: [partida_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_jogador_partida1")
+  usuario                             usuario   @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_jogador_user1")
   partida_partida_vencedorTojogador   partida[] @relation("partida_vencedorTojogador")
   peca                                peca[]
 
   @@index([partida_id], map: "fk_jogador_partida1_idx")
-  @@index([user_id], map: "fk_jogador_user1_idx")
+  @@index([usuario_id], map: "fk_jogador_user1_idx")
 }
 
 model partida {
@@ -33,16 +33,6 @@ model partida {
   @@index([vencedor], map: "fk_partida_jogador1_idx")
 }
 
-model user {
-  id                 Int       @id @default(autoincrement())
-  nick               String    @db.VarChar(45)
-  senha              String    @db.VarChar(80)
-  email              String    @unique(map: "email_UNIQUE") @db.VarChar(90)
-  inicioDoPareamento DateTime? @db.DateTime(0)
-  ultimaVezOnline    DateTime  @default(now()) @db.DateTime(0)
-  jogador            jogador[]
-}
-
 model peca {
   id         Int     @id
   jogador_id Int
@@ -53,4 +43,13 @@ model peca {
   jogador    jogador @relation(fields: [jogador_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_peça_jogador1")
 
   @@index([jogador_id], map: "fk_peça_jogador1_idx")
+}
+
+model usuario {
+  id                 Int       @id @default(autoincrement())
+  nomeDeUsuario      String    @unique(map: "nomeDeUsuario_UNIQUE") @db.VarChar(45)
+  senha              String    @db.VarChar(80)
+  inicioDoPareamento DateTime? @db.DateTime(0)
+  ultimaVezOnline    DateTime  @default(now()) @db.DateTime(0)
+  jogador            jogador[]
 }
