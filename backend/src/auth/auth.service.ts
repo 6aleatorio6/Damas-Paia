@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 // import { CreateAuthDto } from './dto/create-auth.dto';
 // import { UpdateAuthDto } from './dto/update-auth.dto';
 import * as bcrypt from 'bcrypt';
-import { Payload } from './dto/payload.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UsersRepository } from 'src/users/users.repository';
 import { usuario } from '@prisma/client';
+import { UserAuthDto } from './dto/auth.dto';
+import { PayloadDto } from './dto/payload.auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,26 +15,26 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(nomeLogin: string, senhaLogin: string): Promise<Payload> {
+  async validateUser(userAuth: UserAuthDto): Promise<PayloadDto> {
     const { senhaHash, nomeDeUsuario, id } =
-      await this.usersRepository.findOneNome(nomeLogin);
+      await this.usersRepository.findOneNome(userAuth.nomeDeUsuario);
 
-    if (senhaHash && bcrypt.compare(senhaLogin, senhaHash)) {
-      return <Payload>{ nomeDeUsuario, id };
+    if (senhaHash && bcrypt.compare(userAuth.senha, senhaHash)) {
+      return <PayloadDto>{ nomeDeUsuario, id };
     }
 
     return null;
   }
 
-  async login(payload: Payload) {
+  async login(payload: PayloadDto) {
     return {
       token: this.jwtService.sign(payload),
     };
   }
 
-  async cadastrarConta(nome: string, senha: string) {
+  async cadastrarConta({ nomeDeUsuario, senha }: UserAuthDto) {
     return await this.usersRepository.create({
-      nomeDeUsuario: nome,
+      nomeDeUsuario,
       senhaHash: await this.gerarHashSenha(senha),
     });
   }

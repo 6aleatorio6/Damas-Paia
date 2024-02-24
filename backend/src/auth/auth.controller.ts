@@ -2,8 +2,8 @@ import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local.strategy';
 import { Public } from './auth.decorator';
-// import { CreateAuthDto } from './dto/create-auth.dto';
-// import { UpdateAuthDto } from './dto/update-auth.dto';
+import { UserAuthDto } from './dto/auth.dto';
+import { PayloadDto } from './dto/payload.auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,14 +18,14 @@ export class AuthController {
 
   @Public()
   @Post('signUp')
-  async cadastrarConta(@Body() signDto) {
-    return await this.authService.cadastrarConta(signDto.nome, signDto.senha);
+  async cadastrarConta(@Body() userAuth: UserAuthDto) {
+    return await this.authService.cadastrarConta(userAuth);
   }
   @Public()
   @Post('guest')
   async EntrarComoGuest() {
     const { id, nomeDeUsuario } = await this.authService.cadastrarGuest();
 
-    return this.authService.login({ id, nomeDeUsuario });
+    return this.authService.login(<PayloadDto>{ id, nomeDeUsuario });
   }
 }

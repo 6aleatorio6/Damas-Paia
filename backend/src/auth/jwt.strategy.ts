@@ -1,10 +1,10 @@
 import { AuthGuard, PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Payload } from './dto/payload.dto';
 import { AuthService } from './auth.service';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from './auth.decorator';
+import { PayloadDto } from './dto/payload.auth.dto';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   // o proprio passport valida o jwt e lança um erro se for invalida
-  async validate(payload: Payload) {
+  async validate(payload: PayloadDto) {
     return payload;
   }
 }
