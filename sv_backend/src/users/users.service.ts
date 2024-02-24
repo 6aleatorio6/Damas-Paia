@@ -6,8 +6,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: CreateUserDto) {
-    return await this.prisma.usuario.create({ data });
+  async create({ nomeDeUsuario, senhaHash }: CreateUserDto) {
+    return await this.prisma.usuario.create({
+      data: { nomeDeUsuario, senhaHash },
+    });
   }
 
   //   async findAll() {

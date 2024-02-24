@@ -1,4 +1,4 @@
 export class CreateUserDto {
   nomeDeUsuario: string;
-  senha: string;
+  senhaHash: string;
 }

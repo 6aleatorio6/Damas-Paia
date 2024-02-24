@@ -48,7 +48,7 @@ model peca {
 model usuario {
   id                 Int       @id @default(autoincrement())
   nomeDeUsuario      String    @unique(map: "nomeDeUsuario_UNIQUE") @db.VarChar(45)
-  senha              String    @db.VarChar(80)
+  senhaHash          String    @db.VarChar(64)
   inicioDoPareamento DateTime? @db.DateTime(0)
   ultimaVezOnline    DateTime  @default(now()) @db.DateTime(0)
   jogador            jogador[]
