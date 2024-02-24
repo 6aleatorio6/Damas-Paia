@@ -1,34 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { LocalAuthGuard } from './local.strategy';
+import { Public } from './auth.decorator';
+// import { CreateAuthDto } from './dto/create-auth.dto';
+// import { UpdateAuthDto } from './dto/update-auth.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  @Public()
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  async login(@Request() req) {
+    return await this.authService.login(req.user);
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @Public()
+  @Post('signUp')
+  async cadastrarConta(@Body() signDto) {
+    return await this.authService.cadastrarConta(signDto.nome, signDto.senha);
   }
+  @Public()
+  @Post('guest')
+  async EntrarComoGuest() {
+    const { id, nomeDeUsuario } = await this.authService.cadastrarGuest();
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+    return this.authService.login({ id, nomeDeUsuario });
   }
 }
