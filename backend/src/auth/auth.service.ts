@@ -16,10 +16,11 @@ export class AuthService {
   ) {}
 
   async validateUser(userAuth: UserAuthDto): Promise<PayloadDto> {
-    const { senhaHash, nomeDeUsuario, id } =
-      await this.usersRepository.findOneNome(userAuth.nomeDeUsuario);
+    const user = await this.usersRepository.findOneNome(userAuth.nomeDeUsuario);
 
-    if (senhaHash && bcrypt.compare(userAuth.senha, senhaHash)) {
+    if (user && bcrypt.compare(userAuth.senha, user.senhaHash)) {
+      const { nomeDeUsuario, id } = user;
+
       return <PayloadDto>{ nomeDeUsuario, id };
     }
 
