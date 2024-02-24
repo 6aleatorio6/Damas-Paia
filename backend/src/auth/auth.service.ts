@@ -43,8 +43,11 @@ export class AuthService {
   async cadastrarGuest() {
     let guest: usuario;
 
+    // lembrar de refatorar
+    // nao funcionar; 
     //se o nome acabar sendo igual ele vai tentar dnv com outro
     for (let i = 0; i < 5; i++) {
+
       guest = await this.usersRepository.create({
         nomeDeUsuario: 'aleatorioPaia' + this.numeroAleatorio,
         senhaHash: await this.gerarHashSenha(this.numeroAleatorio.toString()),
