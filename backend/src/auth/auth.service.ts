@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
-// import { CreateAuthDto } from './dto/create-auth.dto';
-// import { UpdateAuthDto } from './dto/update-auth.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersRepository } from 'src/users/users.repository';
-import { usuario } from '@prisma/client';
 import { UserAuthDto } from './dto/auth.dto';
 import { PayloadDto } from './dto/payload.auth.dto';
+import { HelpersShared } from 'src/shared/helpers.service';
+import UserDto from 'src/users/dto/user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersRepository: UsersRepository,
     private readonly jwtService: JwtService,
+    private readonly helpers: HelpersShared,
   ) {}
 
   async validateUser(userAuth: UserAuthDto): Promise<PayloadDto> {
@@ -36,34 +36,20 @@ export class AuthService {
   async cadastrarConta({ nomeDeUsuario, senha }: UserAuthDto) {
     return await this.usersRepository.create({
       nomeDeUsuario,
-      senhaHash: await this.gerarHashSenha(senha),
+      senhaHash: await this.helpers.gerarHashSenha(senha),
     });
   }
 
-  async cadastrarGuest() {
-    let guest: usuario;
-
-    // lembrar de refatorar
-    // nao funcionar; 
-    //se o nome acabar sendo igual ele vai tentar dnv com outro
-    for (let i = 0; i < 5; i++) {
-
-      guest = await this.usersRepository.create({
-        nomeDeUsuario: 'aleatorioPaia' + this.numeroAleatorio,
-        senhaHash: await this.gerarHashSenha(this.numeroAleatorio.toString()),
+  async cadastrarGuest(): Promise<UserDto> {
+    const gerarGuest = async () => {
+      return await this.usersRepository.create({
+        nomeDeUsuario: 'aleatorioPaia' + this.helpers.numeroAleatorio,
+        senhaHash: await this.helpers.gerarHashSenha(
+          this.helpers.numeroAleatorio.toString(),
+        ),
       });
+    };
 
-      if (guest) break;
-    }
-
-    return guest;
-  }
-
-  private async gerarHashSenha(senha: string): Promise<string> {
-    return await bcrypt.hash(senha, 13);
-  }
-
-  private get numeroAleatorio(): number {
-    return Math.floor(Math.random() * 10000);
+    return await this.helpers.tentarDnvSeDerErro(gerarGuest);
   }
 }
