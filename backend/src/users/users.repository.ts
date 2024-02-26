@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { usuario } from '@prisma/client';
 import { CreateUserDto } from './dto/create.user.dto';
@@ -8,7 +8,15 @@ export class UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<usuario> {
-    return await this.prisma.usuario.create({ data });
+    try {
+      return await this.prisma.usuario.create({ data });
+    } catch (e) {
+      if (this.prisma.isExceptionUnique(e)) {
+        throw new BadRequestException('esse nome já está sendo usado');
+      }
+
+      throw e;
+    }
   }
 
   async findOneId(id: number): Promise<usuario> {
