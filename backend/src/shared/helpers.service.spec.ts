@@ -17,43 +17,49 @@ describe('SharedService', () => {
     expect(service).toBeDefined();
   });
 
-  it('numero aleatorio: verificar se ele gera um numero aleatorio menor que 10000', () => {
-    expect(service.numeroAleatorio).toBeLessThanOrEqual(10000);
+  describe('numero aleatorio', () => {
+    it('verificar se ele gera um numero aleatorio menor que 10000', () => {
+      expect(service.numeroAleatorio).toBeLessThanOrEqual(10000);
+    });
   });
 
-  it('Gerar Hash: gera um hash com bcrypt', () => {
-    const senha = 'paia123';
+  describe('Gerar Hash', () => {
+    it('gera um hash com bcrypt', () => {
+      const senha = 'paia123';
 
-    const hashDaSenha = bcrypt.hashSync(senha, 10);
+      const hashDaSenha = bcrypt.hashSync(senha, 10);
 
-    expect(bcrypt.compareSync(senha, hashDaSenha)).toBeTruthy();
-    expect(bcrypt.compareSync('senha errada', hashDaSenha)).toBeFalsy();
+      expect(bcrypt.compareSync(senha, hashDaSenha)).toBeTruthy();
+      expect(bcrypt.compareSync('senha errada', hashDaSenha)).toBeFalsy();
+    });
   });
 
-  it('tentarDnvSeDerErro: deu erro na primeira vez, mas na segunda vez deu certo e retornou o valor', async () => {
-    const fn = jest.fn();
+  describe('tentarDnvSeDerErro', () => {
+    it('deu erro na primeira vez, mas na segunda vez deu certo e retornou o valor', async () => {
+      const fn = jest.fn();
 
-    fn.mockRejectedValueOnce(null).mockResolvedValue('ok');
+      fn.mockRejectedValueOnce(null).mockResolvedValue('ok');
 
-    expect(await service.tentarDnvSeDerErro(fn, 5)).toBe('ok');
-    expect(fn.mock.calls.length).toBe(2);
-  });
+      expect(await service.tentarDnvSeDerErro(fn, 5)).toBe('ok');
+      expect(fn.mock.calls.length).toBe(2);
+    });
 
-  it('tentarDnvSeDerErro: deu erro todas as vezes e parou no limite', async () => {
-    const fn = jest.fn();
+    it('tentarDnvSeDerErro: deu erro todas as vezes e parou no limite', async () => {
+      const fn = jest.fn();
 
-    fn.mockRejectedValue(null);
-    await service.tentarDnvSeDerErro(fn, 5);
+      fn.mockRejectedValue(null);
+      await service.tentarDnvSeDerErro(fn, 5);
 
-    expect(fn.mock.calls.length).toBe(5);
-  });
+      expect(fn.mock.calls.length).toBe(5);
+    });
 
-  it('tentarDnvSeDerErro: deu certo na primeira', async () => {
-    const fn = jest.fn();
+    it('tentarDnvSeDerErro: deu certo na primeira', async () => {
+      const fn = jest.fn();
 
-    fn.mockReturnValue('ok');
-    await service.tentarDnvSeDerErro(fn, 5);
+      fn.mockReturnValue('ok');
+      await service.tentarDnvSeDerErro(fn, 5);
 
-    expect(fn.mock.calls.length).toBe(1);
+      expect(fn.mock.calls.length).toBe(1);
+    });
   });
 });
