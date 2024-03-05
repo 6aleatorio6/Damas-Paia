@@ -18,7 +18,9 @@ export class AuthService {
   async validateUser(userAuth: UserAuthDto): Promise<PayloadDto> {
     const user = await this.usersRepository.findOneNome(userAuth.nomeDeUsuario);
 
-    if (user && bcrypt.compare(userAuth.senha, user.senhaHash)) {
+    const isPassed = () => bcrypt.compareSync(userAuth.senha, user.senhaHash);
+
+    if (user && isPassed()) {
       const { nomeDeUsuario, id } = user;
 
       return <PayloadDto>{ nomeDeUsuario, id };
