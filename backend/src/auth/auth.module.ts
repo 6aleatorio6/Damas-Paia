@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ModuleMetadata } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from 'src/users/users.module';
@@ -8,7 +8,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 import { HelpersShared } from 'src/shared/helpers.service';
 
-@Module({
+export const authConfig: ModuleMetadata = {
   imports: [
     UsersModule,
     PassportModule,
@@ -19,5 +19,7 @@ import { HelpersShared } from 'src/shared/helpers.service';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, LocalStrategy, HelpersShared],
-})
+};
+
+@Module(authConfig)
 export class AuthModule {}

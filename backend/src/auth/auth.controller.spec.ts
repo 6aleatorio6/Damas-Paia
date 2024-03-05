@@ -1,18 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { HelpersShared } from 'src/shared/helpers.service';
-import { LocalStrategy } from './local.strategy';
-import { JwtStrategy } from './jwt.strategy';
+import { authConfig } from './auth.module';
 
 describe('AuthController', () => {
   let controller: AuthController;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [AuthController],
-      providers: [AuthService, JwtStrategy, LocalStrategy, HelpersShared],
-    }).compile();
+    const module: TestingModule =
+      await Test.createTestingModule(authConfig).compile();
 
     controller = module.get<AuthController>(AuthController);
   });

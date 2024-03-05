@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HelpersShared } from './helpers.service';
 import * as bcrypt from 'bcrypt';
+import { sharedConfig } from './shared.module';
 
 describe('SharedService', () => {
   let service: HelpersShared;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [HelpersShared],
-    }).compile();
+    const module: TestingModule =
+      await Test.createTestingModule(sharedConfig).compile();
 
     service = module.get<HelpersShared>(HelpersShared);
   });
