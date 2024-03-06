@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { usuario } from '@prisma/client';
 import { CreateUserDto } from './dto/create.user.dto';
+import { UpdateUserDto } from './dto/update.user.dto';
 
 @Injectable()
 export class UsersRepository {
@@ -25,5 +26,12 @@ export class UsersRepository {
 
   async findOneNome(nomeDeUsuario: string): Promise<usuario> {
     return await this.prisma.usuario.findUnique({ where: { nomeDeUsuario } });
+  }
+
+  async updateId(id: number, alteracaoUser: UpdateUserDto): Promise<usuario> {
+    return await this.prisma.usuario.update({
+      where: { id },
+      data: alteracaoUser,
+    });
   }
 }
