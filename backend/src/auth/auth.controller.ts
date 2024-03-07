@@ -19,11 +19,15 @@ export class AuthController {
   @Public()
   @Post('signUp')
   async cadastrarConta(@Body() userAuth: UserAuthDto) {
-    return await this.authService.cadastrarConta(userAuth);
+    const { id, nomeDeUsuario } =
+      await this.authService.cadastrarConta(userAuth);
+
+    return this.authService.login(<PayloadDto>{ id, nomeDeUsuario });
   }
+
   @Public()
   @Post('guest')
-  async EntrarComoGuest() {
+  async entrarComoGuest() {
     const { id, nomeDeUsuario } = await this.authService.cadastrarGuest();
 
     return this.authService.login(<PayloadDto>{ id, nomeDeUsuario });
