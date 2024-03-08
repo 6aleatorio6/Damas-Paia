@@ -20,4 +20,10 @@ export class HelpersShared {
       }
     }
   }
+
+  respostaPadrao(message: string) {
+    return {
+      message,
+    };
+  }
 }
