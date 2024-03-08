@@ -11,7 +11,7 @@ model jogador {
   id                                  Int       @id @default(autoincrement())
   usuario_id                          Int
   partida_id                          Int?
-  cronometro                          Int
+  cronometro                          Int       @default(0)
   partida_jogador_partida_idTopartida partida?  @relation("jogador_partida_idTopartida", fields: [partida_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_jogador_partida1")
   usuario                             usuario   @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_jogador_user1")
   partida_partida_vencedorTojogador   partida[] @relation("partida_vencedorTojogador")
