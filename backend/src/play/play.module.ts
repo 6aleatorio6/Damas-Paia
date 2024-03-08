@@ -1,0 +1,11 @@
+import { Module } from '@nestjs/common';
+import { PlayService } from './play.service';
+import { PlayController } from './play.controller';
+import { PrismaService } from 'src/prisma.service';
+
+@Module({
+  controllers: [PlayController],
+  providers: [PlayService],
+  imports: [PrismaService],
+})
+export class PlayModule {}
