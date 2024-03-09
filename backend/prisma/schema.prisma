@@ -34,7 +34,7 @@ model partida {
 }
 
 model peca {
-  id         Int     @id
+  id         Int     @id @default(autoincrement())
   jogador_id Int
   co_X       Int
   co_Y       Int
