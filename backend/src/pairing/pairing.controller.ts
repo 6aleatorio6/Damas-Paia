@@ -1,17 +1,17 @@
-import { Controller, Get, Request } from '@nestjs/common';
+import { Controller, Patch, Request } from '@nestjs/common';
 import { PairingService } from './pairing.service';
 
 @Controller('pairing')
 export class PairingController {
   constructor(private readonly pairingService: PairingService) {}
 
-  @Get('start')
+  @Patch('start')
   async iniciarPareamento(@Request() { user }) {
-    return await this.pairingService.abrirUserParaPareamento(user.id);
+    return await this.pairingService.userPareamento(user.id, true);
   }
 
-  @Get('stop')
+  @Patch('stop')
   async cancelarPareamento(@Request() { user }) {
-    return await this.pairingService.fecharUserParaPareamento(user.id);
+    return await this.pairingService.userPareamento(user.id, false);
   }
 }
