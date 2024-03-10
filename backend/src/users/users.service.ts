@@ -12,4 +12,10 @@ export class UsersService {
     senhaHash; // inutil aq
     return profile;
   }
+
+  async attUltimaVezOnlineDoUser(id: number) {
+    return await this.usersRepository.updateId(id, {
+      ultimaVezOnline: new Date(),
+    });
+  }
 }
