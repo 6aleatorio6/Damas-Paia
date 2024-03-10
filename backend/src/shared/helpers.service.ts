@@ -21,9 +21,11 @@ export class HelpersShared {
     }
   }
 
-  respostaPadrao(message: string) {
-    return {
-      message,
-    };
+  forDeMatriz(repetir: [number, number], cb: (i: number, j: number) => void) {
+    for (let i = 0; i < repetir[0]; i++) {
+      for (let j = 0; j < repetir[1]; j++) {
+        cb(i, j);
+      }
+    }
   }
 }
