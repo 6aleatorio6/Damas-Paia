@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { usuario } from '@prisma/client';
 import { CreateUserDto } from './dto/create.user.dto';
@@ -9,29 +9,33 @@ export class UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<usuario> {
-    try {
-      return await this.prisma.usuario.create({ data });
-    } catch (e) {
-      if (this.prisma.isExceptionUnique(e)) {
-        throw new BadRequestException('esse nome já está sendo usado');
-      }
+    const dataPrisma = this.prisma.usuario.create({ data });
 
-      throw e;
-    }
+    return this.prisma.tratarErros(dataPrisma, [
+      { code: 'unique', msg: 'esse nome já está sendo usado' },
+    ]);
   }
 
   async findOneId(id: number): Promise<usuario> {
-    return await this.prisma.usuario.findUnique({ where: { id } });
+    const dataPrisma = this.prisma.usuario.findUniqueOrThrow({ where: { id } });
+
+    return await this.prisma.tratarErros(dataPrisma);
   }
 
   async findOneNome(nomeDeUsuario: string): Promise<usuario> {
-    return await this.prisma.usuario.findUnique({ where: { nomeDeUsuario } });
+    const dataPrisma = this.prisma.usuario.findUnique({
+      where: { nomeDeUsuario },
+    });
+
+    return await this.prisma.tratarErros(dataPrisma);
   }
 
   async updateId(id: number, alteracaoUser: UpdateUserDto): Promise<usuario> {
-    return await this.prisma.usuario.update({
+    const dataPrisma = this.prisma.usuario.update({
       where: { id },
       data: alteracaoUser,
     });
+
+    return await this.prisma.tratarErros(dataPrisma);
   }
 }
