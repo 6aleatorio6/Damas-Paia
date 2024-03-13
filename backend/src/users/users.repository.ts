@@ -12,7 +12,8 @@ export class UsersRepository {
     const dataPrisma = this.prisma.usuario.create({ data });
 
     return this.prisma.tratarErros(dataPrisma, [
-      { code: 'unique', msg: 'esse nome já está sendo usado' },
+      'unique',
+      'esse nome já está sendo usado',
     ]);
   }
 

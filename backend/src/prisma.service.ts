@@ -1,20 +1,15 @@
 import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import { Prisma, PrismaClient } from '@prisma/client';
 
-interface ErroInfo {
-  code: keyof typeof ErrosPrisma;
-  msg?: string;
-}
-
-enum ErrosPrisma {
+enum ErrosCode {
   unique = 'P2002',
   findOrThrow = 'P2025',
 }
 
-const errosPadrao: ErroInfo[] = [
-  { code: 'unique', msg: 'O valor desse campo unico já existe' },
-  { code: 'findOrThrow', msg: 'Nâo encontrado' },
-];
+const errosComuns = {
+  [ErrosCode.unique]: 'O valor desse campo unico já existe',
+  [ErrosCode.findOrThrow]: 'Não encontrado',
+};
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -24,17 +19,23 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
   async tratarErros<T>(
     chamada: Promise<T>,
-    addErros = errosPadrao,
+    erroAlterado?: [keyof typeof ErrosCode, string],
   ): Promise<T> {
     try {
       return await chamada;
-    } catch (e: unknown) {
-      const oErroEDoPrisma = e instanceof Prisma.PrismaClientKnownRequestError;
+    } catch (e) {
+      const isErrorPrisma = e instanceof Prisma.PrismaClientKnownRequestError;
+      const existeMsgDoErro =
+        errosComuns[e.code] || ErrosCode[erroAlterado[0]] === e.code;
 
-      for (const erroInfo of addErros) {
-        if (oErroEDoPrisma && e.code === ErrosPrisma[erroInfo.code]) {
-          throw new BadRequestException(erroInfo.msg);
-        }
+      if (isErrorPrisma && existeMsgDoErro) {
+        // se o erro é o  erro alterado e se n, usar msg dos erro comuns
+        const msg =
+          erroAlterado && ErrosCode[erroAlterado[0]] === e.code
+            ? erroAlterado[1]
+            : errosComuns[e.code];
+
+        throw new BadRequestException(msg);
       }
 
       console.error(e);
