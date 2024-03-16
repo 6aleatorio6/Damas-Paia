@@ -22,15 +22,12 @@ export class PrismaHelper {
       return await chamada;
     } catch (e) {
       const isErrorPrisma = e instanceof Prisma.PrismaClientKnownRequestError;
-      const existeMsgDoErro =
-        this.errosComuns[e.code] || ErrosCode[erroAlterado[0]] === e.code;
+      const AlterValido = erroAlterado && ErrosCode[erroAlterado[0]] === e.code;
+      const existeMsgDoErro = this.errosComuns[e.code] || AlterValido;
 
       if (isErrorPrisma && existeMsgDoErro) {
         // se o erro é o  erro alterado e se n, usar msg dos erro comuns
-        const msg =
-          erroAlterado && ErrosCode[erroAlterado[0]] === e.code
-            ? erroAlterado[1]
-            : this.errosComuns[e.code];
+        const msg = AlterValido ? erroAlterado[1] : this.errosComuns[e.code];
 
         throw new BadRequestException(msg);
       }
