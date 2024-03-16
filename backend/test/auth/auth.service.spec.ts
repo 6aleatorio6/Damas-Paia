@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../src/auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
-import { UsersRepository } from '../../users/users.repository';
+import { UsersRepository } from '../../src/users/users.repository';
 import { HelpersShared } from 'src/shared/helpers.service';
 import { CreateUserDto } from 'src/users/dto/create.user.dto';
-import { UserAuthDto } from '../dto/auth.dto';
-import { PayloadDto } from '../dto/payload.auth.dto';
+import { UserAuthDto } from '../../src/auth/dto/auth.dto';
+import { PayloadDto } from '../../src/auth/dto/payload.auth.dto';
 import * as bcrypt from 'bcrypt';
 
 describe('AuthService', () => {

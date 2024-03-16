@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PairingController } from '../pairing.controller';
-import { PairingService } from '../pairing.service';
+import { PairingController } from 'src/pairing/pairing.controller';
+import { PairingService } from 'src/pairing/pairing.service';
 
 describe('PairingController', () => {
   let controller: PairingController;

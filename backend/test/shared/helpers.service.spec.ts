@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HelpersShared } from '../helpers.service';
+import { HelpersShared } from 'src/shared/helpers.service';
 import * as bcrypt from 'bcrypt';
-import { sharedConfig } from '../shared.module';
+import { sharedConfig } from 'src/shared/shared.module';
 
 describe('SharedService', () => {
   let service: HelpersShared;
