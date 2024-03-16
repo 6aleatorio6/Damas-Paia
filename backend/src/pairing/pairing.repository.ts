@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
+import { PrismaHelper } from 'src/shared/prisma.helper';
 
 export interface Peca {
   co_X: number;
@@ -8,18 +9,23 @@ export interface Peca {
 
 @Injectable()
 export class PairingRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private prismaHelper: PrismaHelper,
+  ) {}
 
   async findAllPairing() {
-    return await this.prisma.usuario.findMany({
+    const dataPrisma = this.prisma.usuario.findMany({
       select: { id: true },
       where: { inicioDoPareamento: { not: null } },
       orderBy: { inicioDoPareamento: 'asc' },
     });
+
+    return await this.prismaHelper.tratarErros(dataPrisma);
   }
 
   async userPairing(id: number) {
-    return await this.prisma.usuario.findFirst({
+    const dataPrisma = this.prisma.usuario.findFirstOrThrow({
       select: {
         id: true,
         inicioDoPareamento: true,
@@ -34,20 +40,24 @@ export class PairingRepository {
       },
       where: { id },
     });
+
+    return await this.prismaHelper.tratarErros(dataPrisma);
   }
 
   async pareamentoDoUser(id: number, iniciar: boolean) {
-    return await this.prisma.usuario.update({
+    const dataPrisma = this.prisma.usuario.update({
       select: { inicioDoPareamento: true },
       where: { id },
       data: {
         inicioDoPareamento: iniciar ? new Date() : null,
       },
     });
+
+    return await this.prismaHelper.tratarErros(dataPrisma);
   }
 
   async createJogador(usuario_id: number, pecas: Peca[]) {
-    return await this.prisma.jogador.create({
+    const dataPrisma = this.prisma.jogador.create({
       select: { id: true },
       data: {
         usuario_id,
@@ -58,10 +68,12 @@ export class PairingRepository {
         },
       },
     });
+
+    return await this.prismaHelper.tratarErros(dataPrisma);
   }
 
   async createPartida(userId1: number, userId2: number) {
-    return await this.prisma.partida.create({
+    const dataPrisma = this.prisma.partida.create({
       data: {
         vez: userId1,
         jogador_jogador_partida_idTopartida: {
@@ -69,5 +81,7 @@ export class PairingRepository {
         },
       },
     });
+
+    return await this.prismaHelper.tratarErros(dataPrisma);
   }
 }
