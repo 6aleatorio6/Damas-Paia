@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { HelpersShared } from './helpers.service';
+import { PrismaHelper } from './prisma.helper';
 
 export const sharedConfig = {
-  providers: [HelpersShared],
-  exports: [HelpersShared],
+  providers: [HelpersShared, PrismaHelper],
+  exports: [HelpersShared, PrismaHelper],
 };
 
 @Module(sharedConfig)
