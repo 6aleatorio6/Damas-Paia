@@ -2,14 +2,21 @@ import { Module, ModuleMetadata } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { PrismaService } from 'src/prisma.service';
 import { UsersRepository } from './users.repository';
-import { PairingModule } from 'src/pairing/pairing.module';
-import { SharedModule } from 'src/shared/shared.module';
 import { UsersController } from './users.controller';
+import { HelpersShared } from 'src/shared/helpers.service';
+import { PrismaHelper } from 'src/shared/prisma.helper';
+import { MatchHandlerModule } from 'src/match-handler/match-handler.module';
 
 export const config: ModuleMetadata = {
-  imports: [PairingModule, SharedModule],
+  imports: [MatchHandlerModule],
   controllers: [UsersController],
-  providers: [UsersService, UsersRepository, PrismaService],
+  providers: [
+    UsersService,
+    UsersRepository,
+    PrismaService,
+    HelpersShared,
+    PrismaHelper,
+  ],
   exports: [UsersRepository],
 };
 

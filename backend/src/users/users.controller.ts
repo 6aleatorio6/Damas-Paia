@@ -1,12 +1,12 @@
 import { Controller, Get, Patch, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { PairingService } from 'src/pairing/pairing.service';
+import { MatchHandlerService } from 'src/match-handler/match-handler.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private pairingService: PairingService,
+    private matchHandler: MatchHandlerService,
   ) {}
 
   @Get('profile')
@@ -18,6 +18,6 @@ export class UsersController {
   async sicronizarInfoDaConta(@Request() { user }) {
     this.usersService.attUltimaVezOnlineDoUser(user.id);
 
-    return await this.pairingService.verificarEstadoDoPareamento(user.id);
+    return await this.matchHandler.verificarEstadoDoPareamento(user.id);
   }
 }
