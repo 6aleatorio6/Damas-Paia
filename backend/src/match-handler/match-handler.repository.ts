@@ -16,14 +16,28 @@ export class MatchHandlerRepository {
 
   async estadoDePareamento(id: number, ligado: boolean) {
     const dataPrisma = this.prisma.usuario.update({
-      select: { inicioDoPareamento: true },
-      where: { id },
+      select: {
+        inicioDoPareamento: true,
+      },
+      where: {
+        id,
+        jogador: {
+          every: {
+            partida_jogador_partida_idTopartida: {
+              endDate: { not: null },
+            },
+          },
+        },
+      },
       data: {
         inicioDoPareamento: ligado ? new Date() : null,
       },
     });
 
-    return await this.prismaHelper.tratarErros(dataPrisma);
+    return await this.prismaHelper.tratarErros(dataPrisma, [
+      'findOrThrow',
+      'não pode parear se já estiver em partida',
+    ]);
   }
 
   async jogadorEmPartidaPeloUserId(id: number) {
@@ -122,8 +136,6 @@ export class MatchHandlerRepository {
       }),
       ['findOrThrow', 'Vocẽ não está em partida'],
     );
-
-    console.log(adversario);
 
     const dataPrisma = await this.prisma.partida.update({
       where: { id: adversario.partida_id },
